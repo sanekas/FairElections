@@ -1,6 +1,7 @@
 package edu.infosec.fairelections.controllers;
 
 import edu.infosec.fairelections.model.entity.api.VoterCreateForm;
+import edu.infosec.fairelections.model.service.api.VoterCreateFormValidator;
 import edu.infosec.fairelections.model.service.api.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

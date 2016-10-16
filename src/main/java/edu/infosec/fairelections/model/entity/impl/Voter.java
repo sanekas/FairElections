@@ -1,5 +1,6 @@
 package edu.infosec.fairelections.model.entity.impl;
 
+import edu.infosec.fairelections.model.entity.api.Role;
 import edu.infosec.fairelections.model.entity.api.Vote;
 import org.springframework.data.annotation.Id;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Entity
+@Table(name = "voter")
 public class Voter {
 
     @Id
@@ -27,6 +29,10 @@ public class Voter {
     @Column(name = "vote", nullable = false)
     @Enumerated(EnumType.STRING)
     private Vote vote;
+
+    @Column(name = "role", nullable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public AtomicLong getId() {
         return id;
@@ -68,6 +74,14 @@ public class Voter {
         this.vote = vote;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Voter{" +
@@ -76,6 +90,7 @@ public class Voter {
                 ", username='" + username + '\'' +
                 ", passwordHash='" + passwordHash + '\'' +
                 ", vote=" + vote +
+                ", role=" + role +
                 '}';
     }
 }

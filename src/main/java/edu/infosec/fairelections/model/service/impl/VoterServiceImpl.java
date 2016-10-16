@@ -16,22 +16,22 @@ public class VoterServiceImpl implements VoterService {
     private final VoterRepository voterRepository;
 
     @Autowired
-    public VoterServiceImpl(VoterRepository userRepository) {
-        this.voterRepository = userRepository;
+    public VoterServiceImpl(VoterRepository voterRepository) {
+        this.voterRepository = voterRepository;
     }
 
     @Override
-    public Optional<Voter> getUserById(AtomicLong id) {
+    public Optional<Voter> getVoterById(AtomicLong id) {
         return Optional.ofNullable(voterRepository.findOne(id));
     }
 
     @Override
-    public Optional<Voter> getUserByEmail(String email) {
+    public Optional<Voter> getVoterByEmail(String email) {
         return voterRepository.findOneByEmail(email);
     }
 
     @Override
-    public Collection<Voter> getAllUsers() {
+    public Collection<Voter> getAllVoters() {
         return voterRepository.findAll(new Sort("email"));
     }
 
@@ -40,7 +40,6 @@ public class VoterServiceImpl implements VoterService {
         Voter voter = new Voter();
         voter.setEmail(form.getEmail());
         voter.setPasswordHash(new BCryptPasswordEncoder().encode(form.getPassword()));
-        voter.setVote(form.getVote());
-        return voterRepository.save(voter);
+        return null;
     }
 }

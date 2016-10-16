@@ -16,10 +16,10 @@ public class VoterCreateForm {
     private String password = "";
 
     @NotEmpty
-    private String repeatedPassword = "";
+    private String passwordRepeated = "";
 
     @NotNull
-    private Vote vote = Vote.EMPTY;
+    private Role role = Role.USER;
 
     public String getEmail() {
         return email;
@@ -45,20 +45,20 @@ public class VoterCreateForm {
         this.password = password;
     }
 
-    public String getRepeatedPassword() {
-        return repeatedPassword;
+    public String getPasswordRepeated() {
+        return passwordRepeated;
     }
 
-    public void setRepeatedPassword(String repeatedPassword) {
-        this.repeatedPassword = repeatedPassword;
+    public void setPasswordRepeated(String passwordRepeated) {
+        this.passwordRepeated = passwordRepeated;
     }
 
-    public Vote getVote() {
-        return vote;
+    public Role getRole() {
+        return role;
     }
 
-    public void setVote(Vote vote) {
-        this.vote = vote;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -67,8 +67,8 @@ public class VoterCreateForm {
                 "email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", repeatedPassword='" + repeatedPassword + '\'' +
-                ", vote=" + vote +
+                ", passwordRepeated='" + passwordRepeated + '\'' +
+                ", role=" + role +
                 '}';
     }
 }
