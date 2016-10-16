@@ -33,13 +33,13 @@ public class VoterController {
     }
 
     @RequestMapping("/vote/{id}")
-    public ModelAndView getUserPage(@PathVariable AtomicLong id) {
+    public ModelAndView getVoterPage(@PathVariable AtomicLong id) {
         return new ModelAndView("voter", "voter", voterService.getVoterById(id)
-                .orElseThrow(() -> new NoSuchElementException(String.format("User=%s not found", id))));
+                .orElseThrow(() -> new NoSuchElementException(String.format("Voter=%s not found", id))));
     }
 
     @RequestMapping(value = "/voter/create", method = RequestMethod.GET)
-    public ModelAndView getUserCreatePage() {
+    public ModelAndView getVoterCreatePage() {
         return new ModelAndView("voter_create", "form", new VoterCreateForm());
     }
 
