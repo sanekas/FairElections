@@ -1,7 +1,5 @@
-package edu.infosec.fairelections.model.entity.impl;
+package edu.infosec.fairelections.model;
 
-import edu.infosec.fairelections.model.entity.api.Role;
-import edu.infosec.fairelections.model.entity.api.Vote;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;

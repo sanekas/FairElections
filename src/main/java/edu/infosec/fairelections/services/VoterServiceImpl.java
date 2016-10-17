@@ -1,17 +1,18 @@
-package edu.infosec.fairelections.model.service.impl;
+package edu.infosec.fairelections.services;
 
-import edu.infosec.fairelections.model.entity.api.VoterCreateForm;
-import edu.infosec.fairelections.model.entity.impl.Voter;
-import edu.infosec.fairelections.model.service.api.VoterRepository;
-import edu.infosec.fairelections.model.service.api.VoterService;
+import edu.infosec.fairelections.model.Voter;
+import edu.infosec.fairelections.model.VoterCreateForm;
+import edu.infosec.fairelections.repository.VoterRepository;
+import edu.infosec.fairelections.utils.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Service
 public class VoterServiceImpl implements VoterService {
     private final VoterRepository voterRepository;
 
@@ -39,7 +40,8 @@ public class VoterServiceImpl implements VoterService {
     public Voter create(VoterCreateForm form) {
         Voter voter = new Voter();
         voter.setEmail(form.getEmail());
-        voter.setPasswordHash(new BCryptPasswordEncoder().encode(form.getPassword()));
-        return null;
+        voter.setPasswordHash(EncryptionService.BCRYPT.getEncoder().encode(form.getPassword()));
+        voter.setRole(form.getRole());
+        return voter;
     }
 }

@@ -1,6 +1,6 @@
-package edu.infosec.fairelections.model.service.api;
+package edu.infosec.fairelections.repository;
 
-import edu.infosec.fairelections.model.entity.impl.Voter;
+import edu.infosec.fairelections.model.Voter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

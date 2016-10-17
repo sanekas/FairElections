@@ -1,4 +1,4 @@
-package edu.infosec.fairelections.model.entity.api;
+package edu.infosec.fairelections.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
