@@ -1,13 +1,11 @@
-package edu.infosec.fairelections.model;
+package edu.infosec.fairelections.model.entities;
 
+import edu.infosec.fairelections.model.api.UserRole;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
 
-public class VoterCreateForm {
-
-    @NotEmpty
-    private String email = "";
+public class UserCreateForm {
 
     @NotEmpty
     private String username = "";
@@ -19,15 +17,7 @@ public class VoterCreateForm {
     private String passwordRepeated = "";
 
     @NotNull
-    private Role role = Role.USER;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    private UserRole userRole = UserRole.VOTER;
 
     public String getUsername() {
         return username;
@@ -53,22 +43,21 @@ public class VoterCreateForm {
         this.passwordRepeated = passwordRepeated;
     }
 
-    public Role getRole() {
-        return role;
+    public UserRole getUserRole() {
+        return userRole;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     @Override
     public String toString() {
-        return "VoterCreateForm{" +
-                "email='" + email + '\'' +
-                ", username='" + username + '\'' +
+        return "UserCreateForm{" +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", passwordRepeated='" + passwordRepeated + '\'' +
-                ", role=" + role +
+                ", userRole=" + userRole +
                 '}';
     }
 }

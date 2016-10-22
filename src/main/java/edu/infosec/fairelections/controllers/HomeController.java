@@ -8,7 +8,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String getHomePage() {
-        return "<h1 align=\"center\">Welcome to fair elections!</h1>";
+        return "home";
     }
 
 }
