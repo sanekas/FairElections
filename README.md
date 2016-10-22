@@ -1,5 +1,5 @@
 # FairElections
-Проект "Честные выборы" по курсу защиты информации.
+Project "Fair Elections", information security course
 
 ##Links
 * [Tutorial article](http://kielczewski.eu/2014/12/spring-boot-security-application/)
