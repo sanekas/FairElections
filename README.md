@@ -7,3 +7,4 @@ Project "Fair Elections", information security course
 * [Scientific article, algorithm](https://habrahabr.ru/post/156825/)
 * [Googledoc - common information, goals and objectives, improvements](https://docs.google.com/document/u/1/d/19R7bXON6pg3gUt15ifT-KnZj8W9ayUV4YSHmF3IJWKs/edit)
 * [GitLab](https://gitlab.com/kventos/FairElections)
+* [About H2 embedded(in memory) DB](http://www.h2database.com/html/features.html#in_memory_databases)
