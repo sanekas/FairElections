@@ -14,7 +14,7 @@
         <h1>User details</h1>
 
         <p>Username: ${user.username}</p>
-        <p>Vote: ${user.userVote}</p>
+        <p>Vote: ${user.vote}</p>
         <p>Role: ${user.userRole}</p>
     </body>
 </html>

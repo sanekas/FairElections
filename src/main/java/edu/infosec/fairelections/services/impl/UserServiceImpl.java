@@ -1,7 +1,6 @@
 package edu.infosec.fairelections.services.impl;
 
 import edu.infosec.fairelections.model.entities.User;
-import edu.infosec.fairelections.model.api.UserVote;
 import edu.infosec.fairelections.model.entities.UserCreateForm;
 import edu.infosec.fairelections.repository.UserRepository;
 import edu.infosec.fairelections.services.api.UserService;
@@ -44,7 +43,6 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setUsername(form.getUsername());
         user.setPasswordHash(encryptionService.getEncoder().encode(form.getPassword()));
-        user.setUserVote(UserVote.EMPTY);
         user.setUserRole(form.getUserRole());
         return userRepository.save(user);
     }
