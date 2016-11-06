@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sanekas/FairElections.svg?branch=master)](https://travis-ci.org/sanekas/FairElections.svg?branch=master)
+[![Build Status](https://travis-ci.org/sanekas/FairElections.svg?branch=master)](https://travis-ci.org/sanekas/FairElections)
 
 # FairElections
 Project "Fair Elections", information security course
