@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/sanekas/FairElections.svg?branch=master)](https://travis-ci.org/sanekas/FairElections)
+[![Code Climate](https://codeclimate.com/github/sanekas/FairElections/badges/gpa.svg)](https://codeclimate.com/github/sanekas/FairElections)
 
 # FairElections
 Project "Fair Elections", information security course
