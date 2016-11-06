@@ -1,7 +1,7 @@
 package edu.infosec.fairelections.services.api;
 
-import edu.infosec.fairelections.model.entities.UserCreateForm;
 import edu.infosec.fairelections.model.entities.Voter;
+import edu.infosec.fairelections.model.entities.VoterForm;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -11,5 +11,5 @@ public interface VoterService {
 
     Collection<Voter> getAllVoters();
 
-    Voter create(UserCreateForm form);
+    Voter save(VoterForm form);
 }

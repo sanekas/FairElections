@@ -1,34 +1,59 @@
 package edu.infosec.fairelections.controllers;
 
-import edu.infosec.fairelections.model.api.Vote;
-import edu.infosec.fairelections.model.entities.CurrentUser;
+import edu.infosec.fairelections.model.entities.VoterForm;
 import edu.infosec.fairelections.services.api.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Optional;
+import javax.validation.Valid;
+
 
 @Controller
 public class VoteController {
     private final VoterService voterService;
+    private final Validator voterCreateFormValidator;
 
 
     @Autowired
-    public VoteController(VoterService voterService) {
+    public VoteController(VoterService voterService,
+                          Validator voterCreateFormValidator) {
         this.voterService = voterService;
+        this.voterCreateFormValidator = voterCreateFormValidator;
     }
 
-    @PreAuthorize("hasAuthority('VOTER')")
+    @InitBinder("form")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(voterCreateFormValidator);
+    }
+
+    @PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
+    @RequestMapping(value = "/vote", method = RequestMethod.GET)
+    public ModelAndView getVoterPage(@PathVariable Long id) {
+        return new ModelAndView("vote", "form", new VoterForm());
+    }
+
+    @PreAuthorize("hasAuthority('VOTER') && @currentUserServiceImpl.canAccessUser(principal, #id)")
     @RequestMapping(value = "/vote", method = RequestMethod.POST)
-    public ModelAndView getLoginPage(@RequestParam CurrentUser currentUser,
-                                     @RequestParam Vote vote,
-                                     @RequestParam Optional<String> error) {
-        return new ModelAndView("vote", "error", error);
+    public String handleVoterCreateForm(@PathVariable Long id,
+                                        @Valid @ModelAttribute("form") VoterForm voterForm,
+                                        BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "user";
+        }
+        try {
+            voterService.save(voterForm);
+        } catch (DataIntegrityViolationException e) {
+            bindingResult.reject("voter.id");
+            return "user";
+        }
+        return "user";
     }
 
 }

@@ -2,22 +2,15 @@ package edu.infosec.fairelections.model.entities;
 
 import edu.infosec.fairelections.model.api.Vote;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "voter")
-public class Voter {
-
-    @Id
-    @Column(name = "id", nullable = false)
+public class VoterForm {
+    @NotNull
     private Long id;
 
-    @Column(name = "user_vote", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @NotNull
     private Vote vote;
 
-    @Column(name = "twin_voter_id")
-    private Long twinVoterId;
 
     public Long getId() {
         return id;
@@ -35,20 +28,11 @@ public class Voter {
         this.vote = vote;
     }
 
-    public Long getTwinVoterId() {
-        return twinVoterId;
-    }
-
-    public void setTwinVoterId(Long twinVoterId) {
-        this.twinVoterId = twinVoterId;
-    }
-
     @Override
     public String toString() {
-        return "Voter{" +
+        return "VoterForm{" +
                 "id=" + id +
                 ", vote=" + vote +
-                ", twinVoterId=" + twinVoterId +
                 '}';
     }
 }
