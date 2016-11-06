@@ -1,7 +1,9 @@
 ---
 engines:
-  fixme:
+  pmd:
     enabled: true
+    channel: "beta"
+
 ratings:
-  paths: []
-exclude_paths: []
+  paths:
+  - "**.java"
