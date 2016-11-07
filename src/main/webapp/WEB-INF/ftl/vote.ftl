@@ -13,27 +13,41 @@
 
 <h1>Vote</h1>
 
-<#if !currentUser.vote??>
-<form enctype="multipart/form-data" method="post" action="/vote">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <label>
-        <input type="radio" value="1"/>
-        1. Вася
-    </label>
-    <label>
-        <input type="radio" value="2"/>
-        2. Петя
-    </label>
-    <label>
-        <input type="radio" value="3"/>
-        3. Ваня
-    </label>
-    <button type="submit">Vote!</button>
-</form>
+<#list form.options as option>
+<p>${option}
+</#list>
+
+<@spring.bind "form" />
+<#if spring.status.error>
+<ul>
+    <#list spring.status.errorMessages as error>
+        <li>${error}</li>
+    </#list>
+</ul>
 </#if>
-<#if currentUser.vote??>
-Results!
-</#if>
+
+
+<#--<#if !currentUser.vote??>-->
+<#--<form enctype="multipart/form-data" method="post" action="/vote">-->
+    <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+    <#--<label>-->
+        <#--<input type="radio" value="1"/>-->
+        <#--1. Вася-->
+    <#--</label>-->
+    <#--<label>-->
+        <#--<input type="radio" value="2"/>-->
+        <#--2. Петя-->
+    <#--</label>-->
+    <#--<label>-->
+        <#--<input type="radio" value="3"/>-->
+        <#--3. Ваня-->
+    <#--</label>-->
+    <#--<button type="submit">Vote!</button>-->
+<#--</form>-->
+<#--</#if>-->
+<#--<#if currentUser.vote??>-->
+<#--Results!-->
+<#--</#if>-->
 
 </body>
 </html>

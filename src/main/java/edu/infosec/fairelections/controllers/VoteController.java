@@ -1,5 +1,6 @@
 package edu.infosec.fairelections.controllers;
 
+import edu.infosec.fairelections.model.api.Vote;
 import edu.infosec.fairelections.model.entities.VoterForm;
 import edu.infosec.fairelections.services.api.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 
 
 @Controller
