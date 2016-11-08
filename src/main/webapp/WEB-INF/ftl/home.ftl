@@ -24,6 +24,9 @@
         <li><a href="/user/create">Create a new user</a></li>
         <li><a href="/users">View all users</a></li>
     </#if>
+    <#if currentUser?? && (currentUser.role == "ADMIN" || currentUser.role == "VOTER")>
+        <li><a href="/vote">Vote</a></li>
+    </#if>
     </ul>
 </nav>
 </body>
