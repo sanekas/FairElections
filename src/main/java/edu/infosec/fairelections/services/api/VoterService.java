@@ -11,5 +11,5 @@ public interface VoterService {
 
     Collection<Voter> getAllVoters();
 
-    Voter save(VoterForm form);
+    Voter save(Long voterId, VoterForm form);
 }

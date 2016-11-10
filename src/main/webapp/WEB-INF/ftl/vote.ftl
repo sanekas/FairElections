@@ -13,41 +13,22 @@
 
 <h1>Vote</h1>
 
-<#list form.options as option>
-<p>${option}
-</#list>
+<#import "/spring.ftl" as spring/>
+<@spring.bind "candidates" />
+
+<form action="/vote" method="POST">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <@spring.formSingleSelect "form.vote", candidates, "<br>" />
+    <input type="submit" value="submit"/>
+</form>
 
 <@spring.bind "form" />
 <#if spring.status.error>
-<ul>
-    <#list spring.status.errorMessages as error>
-        <li>${error}</li>
-    </#list>
-</ul>
+    <ul>
+        <#list spring.status.errorMessages as error>
+            <li>${error}</li>
+        </#list>
+    </ul>
 </#if>
-
-
-<#--<#if !currentUser.vote??>-->
-<#--<form enctype="multipart/form-data" method="post" action="/vote">-->
-    <#--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
-    <#--<label>-->
-        <#--<input type="radio" value="1"/>-->
-        <#--1. Вася-->
-    <#--</label>-->
-    <#--<label>-->
-        <#--<input type="radio" value="2"/>-->
-        <#--2. Петя-->
-    <#--</label>-->
-    <#--<label>-->
-        <#--<input type="radio" value="3"/>-->
-        <#--3. Ваня-->
-    <#--</label>-->
-    <#--<button type="submit">Vote!</button>-->
-<#--</form>-->
-<#--</#if>-->
-<#--<#if currentUser.vote??>-->
-<#--Results!-->
-<#--</#if>-->
-
 </body>
 </html>

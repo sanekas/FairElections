@@ -1,5 +1,6 @@
 package edu.infosec.fairelections.services.impl;
 
+import edu.infosec.fairelections.model.api.Vote;
 import edu.infosec.fairelections.model.entities.Voter;
 import edu.infosec.fairelections.model.entities.VoterForm;
 import edu.infosec.fairelections.repository.VoterRepository;
@@ -31,16 +32,16 @@ public class VoterServiceImpl implements VoterService {
     }
 
     @Override
-    public Voter save(VoterForm voterForm) {
-        Optional<Voter> voterWrap = voterRepository.findOneById(voterForm.getId());
+    public Voter save(Long voterId, VoterForm voterForm) {
+        Optional<Voter> voterWrap = voterRepository.findOneById(voterId);
         Voter voter;
         if (voterWrap.isPresent()) {
             voter = voterWrap.get();
         } else {
             voter = new Voter();
+            voter.setId(voterId);
+            voter.setVote(Vote.valueOf(voterForm.getVote()));
         }
-        voter.setId(voterForm.getId());
-        voter.setVote(voterForm.getVote());
         return voterRepository.save(voter);
     }
 }
