@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sanekas/FairElections.svg?branch=master)](https://travis-ci.org/sanekas/FairElections)
+[![Build Status](https://travis-ci.org/sanekas/fair-elections.svg?branch=master)](https://travis-ci.org/sanekas/fair-elections)
 [![Code Climate](https://codeclimate.com/github/sanekas/FairElections/badges/gpa.svg)](https://codeclimate.com/github/sanekas/FairElections)
 
 # FairElections
