@@ -2,30 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <title>Home page</title>
+    <style>
+        body { background: url(http://newsl.org/wp-content/uploads/2015/07/donald_trump_108984675_1.jpg);
+            background-size: cover;
+        }
+    </style>
+
 </head>
 <body>
-<h1 align="center">Welcome to fair elections!</h1>
+<h1 align="center"><span class="label label-info">Welcome to fair elections!</span></h1>
 <nav role="navigation">
     <ul>
     <#if !currentUser??>
-        <li><a href="/login">Log in</a></li>
+        <a href="/login" class="btn btn-primary" style="width:150px">Log in</a><br/>
     </#if>
     <#if currentUser??>
-        <li>
+        <div>
             <form action="/logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit">Log out</button>
+                <button type="submit" class="btn btn-primary" style="width:150px">Log out</button>
             </form>
-        </li>
-        <li><a href="/user/${currentUser.id}">View myself</a></li>
+        </div>
+        <br/>
+        <div><a href="/user/${currentUser.id}" class="btn btn-primary" style="width:150px">View myself</a></div><br/>
     </#if>
     <#if currentUser?? && currentUser.role == "ADMIN">
-        <li><a href="/user/create">Create a new user</a></li>
-        <li><a href="/users">View all users</a></li>
+        <div><a href="/user/create" class="btn btn-primary" style="width:150px">Create a new user</a></div><br/>
+        <div><a href="/users" class="btn btn-primary" style="width:150px">View all users</a></div><br/>
     </#if>
     <#if currentUser?? && (currentUser.role == "ADMIN" || currentUser.role == "VOTER")>
-        <li><a href="/vote">Vote</a></li>
+        <div><a href="/vote" class="btn btn-primary" style="width:150px">Vote</a></div>
     </#if>
     </ul>
 </nav>
