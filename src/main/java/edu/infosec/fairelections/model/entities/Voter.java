@@ -12,7 +12,7 @@ public class Voter {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "user_vote", nullable = false)
+    @Column(name = "vote", nullable = false)
     @Enumerated(EnumType.STRING)
     private Vote vote;
 
