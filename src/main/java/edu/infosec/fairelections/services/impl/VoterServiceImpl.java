@@ -34,14 +34,16 @@ public class VoterServiceImpl implements VoterService {
         return voterRepository.findAll(new Sort("id"));
     }
 
-    @Override
+    @Override //TODO: Clarify your algorithm
     public Voter save(Long voterId, VoterForm voterForm) {
         Optional<Voter> voterWrap = voterRepository.findOneById(voterId);
         Voter voter;
         if (voterWrap.isPresent()) {
             voter = voterWrap.get();
+            voter.setVote(Vote.valueOf(voterForm.getVote()));
         } else {
             voter = new Voter();
+            updateVoter(voter, voterId, voterForm);
             if (lastAddedId != -1) {
                 voterRepository.getOne(firstAddedId).setTwinVoterId(voterId);
             } else {
@@ -49,7 +51,6 @@ public class VoterServiceImpl implements VoterService {
             }
             lastAddedId = voterId;
         }
-        updateVoter(voter, voterId, voterForm);
         return voterRepository.save(voter);
     }
 
