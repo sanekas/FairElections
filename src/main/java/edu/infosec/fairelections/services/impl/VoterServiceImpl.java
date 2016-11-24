@@ -49,14 +49,13 @@ public class VoterServiceImpl implements VoterService {
             }
             lastAddedId = voterId;
         }
-        voter.setId(voterId);
-        voter.setTwinVoterId(lastAddedId);
-        voter.setVote(Vote.valueOf(voterForm.getVote()));
+        updateVoter(voter, voterId, voterForm);
         return voterRepository.save(voter);
     }
 
-    //TODO: Encapsulate logic of voter's fields initialization here
     private void updateVoter(Voter voter, Long voterId, VoterForm voterForm) {
-
+        voter.setId(voterId);
+        voter.setTwinVoterId(lastAddedId);
+        voter.setVote(Vote.valueOf(voterForm.getVote()));
     }
 }
