@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <title>List of Voters</title>
-</head>
+
+<#assign title = "List of Voters">
+<#include "common/head.ftl">
+
 <body>
 
 <h1 align="center"><span class="label label-info"> List of Voters </span></h1>
