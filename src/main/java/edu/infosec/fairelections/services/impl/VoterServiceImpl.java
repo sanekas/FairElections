@@ -16,8 +16,8 @@ import java.util.Optional;
 public class VoterServiceImpl implements VoterService {
     private final VoterRepository voterRepository;
 
-    private long lastAddedId = -1;
-    private long firstAddedId = 0;
+    private long lastAddedId = -1; //TODO: Change type to AtomicLong
+    private long firstAddedId = 0; //TODO: Change type to AtomicLong
 
     @Autowired
     public VoterServiceImpl(VoterRepository voterRepository) {
@@ -42,9 +42,6 @@ public class VoterServiceImpl implements VoterService {
             voter = voterWrap.get();
         } else {
             voter = new Voter();
-            voter.setId(voterId);
-            voter.setTwinVoterId(lastAddedId);
-            voter.setVote(Vote.valueOf(voterForm.getVote()));
             if (lastAddedId != -1) {
                 voterRepository.getOne(firstAddedId).setTwinVoterId(voterId);
             } else {
@@ -52,6 +49,14 @@ public class VoterServiceImpl implements VoterService {
             }
             lastAddedId = voterId;
         }
+        voter.setId(voterId);
+        voter.setTwinVoterId(lastAddedId);
+        voter.setVote(Vote.valueOf(voterForm.getVote()));
         return voterRepository.save(voter);
+    }
+
+    //TODO: Encapsulate logic of voter's fields initialization here
+    private void updateVoter(Voter voter, Long voterId, VoterForm voterForm) {
+
     }
 }
