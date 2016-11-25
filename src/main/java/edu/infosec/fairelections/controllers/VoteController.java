@@ -1,5 +1,6 @@
 package edu.infosec.fairelections.controllers;
 
+import edu.infosec.fairelections.model.api.Vote;
 import edu.infosec.fairelections.model.entities.CurrentUser;
 import edu.infosec.fairelections.model.entities.VoterForm;
 import edu.infosec.fairelections.services.api.CandidatesService;
@@ -54,7 +55,10 @@ public class VoteController {
         }
         CurrentUser currentUser= (CurrentUser) authentication.getPrincipal();
         try {
-            voterService.save(currentUser.getId(), voterForm);
+            Vote vote = Vote.valueOf(voterForm.getVote());
+            if (vote != Vote.EMPTY) {
+                voterService.save(currentUser.getId(), vote);
+            }
         } catch (DataIntegrityViolationException e) {
             LOGGER.error("Voting is failed, voter: " + currentUser + ", voterForm: " + voterForm);
             bindingResult.reject("voter.id");

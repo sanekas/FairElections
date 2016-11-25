@@ -2,7 +2,6 @@ package edu.infosec.fairelections.services.impl;
 
 import edu.infosec.fairelections.model.api.Vote;
 import edu.infosec.fairelections.model.entities.Voter;
-import edu.infosec.fairelections.model.entities.VoterForm;
 import edu.infosec.fairelections.repository.VoterRepository;
 import edu.infosec.fairelections.services.api.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,33 +34,44 @@ public class VoterServiceImpl implements VoterService {
         return voterRepository.findAll(new Sort("id"));
     }
 
+
+    /**
+     * Algorithm description:
+     *
+     * if voter exists in PBB we will set only his new vote
+     * if voter doesn't exist in PBB we will create new voter will set all his data
+     * if PBB is not empty (without the current voter) we will put in the first voter's
+     * twin_voter_id the id of the current voter
+     * if PBB is empty (without the current voter) the current voter will be the first thus  firstAddedId = voterId
+     * mark that the current voter is last
+     *
+     * @param voterId
+     * @param vote
+     * @return new voter
+     */
     @Override
-    public Voter save(Long voterId, VoterForm voterForm) {
+    public Voter save(Long voterId, Vote vote) {
         Optional<Voter> voterWrap = voterRepository.findOneById(voterId);
         Voter voter;
         if (voterWrap.isPresent()) {
-            //if voter exists in PBB we will set only his new vote
             voter = voterWrap.get();
-            voter.setVote(Vote.valueOf(voterForm.getVote()));
+            voter.setVote(vote);
         } else {
-            //if voter doesn't exist in PBB we will create new voter will set all his data
             voter = new Voter();
-            addVoterToPBB(voter, voterId, voterForm);
+            addVoterToPBB(voter, voterId, vote);
             if (lastAddedId.get() != -1L) {
-                //if PBB is not empty (without the current voter) we will put in the first voter's twin_voter_id the id of the current voter
                 voterRepository.getOne(firstAddedId.get()).setTwinVoterId(voterId);
             } else {
-                //if PBB is empty (without the current voter) the current voter will be the first thus  firstAddedId = voterId
                 firstAddedId.set(voterId);
             }
-            lastAddedId.set(voterId); // mark that the current voter is last
+            lastAddedId.set(voterId);
         }
         return voterRepository.save(voter);
     }
 
-    private void addVoterToPBB(Voter voter, Long voterId, VoterForm voterForm) {
+    private void addVoterToPBB(Voter voter, Long voterId, Vote vote) {
         voter.setId(voterId);
         voter.setTwinVoterId(lastAddedId.get());
-        voter.setVote(Vote.valueOf(voterForm.getVote()));
+        voter.setVote(vote);
     }
 }
