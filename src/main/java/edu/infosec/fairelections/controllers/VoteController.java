@@ -33,7 +33,7 @@ public class VoteController {
     }
 
 
-    @PreAuthorize("hasAuthority('VOTER') || hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('VOTER')")
     @RequestMapping(value = "/vote", method = RequestMethod.GET)
     public ModelAndView getVoterPage() {
 
