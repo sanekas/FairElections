@@ -5,7 +5,7 @@
 
     <groupId>edu.infosec.fairelections</groupId>
     <artifactId>fair-elections</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0.RELEASE</version>
     <packaging>jar</packaging>
 
     <name>fair-elections</name>
