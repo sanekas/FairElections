@@ -11,13 +11,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class VoterServiceImpl implements VoterService {
     private final VoterRepository voterRepository;
 
-    private long lastAddedId = -1; //TODO: Change type to AtomicLong
-    private long firstAddedId = 0; //TODO: Change type to AtomicLong
+    private AtomicLong lastAddedId = new AtomicLong(-1);
+    private AtomicLong firstAddedId = new AtomicLong(0);
 
     @Autowired
     public VoterServiceImpl(VoterRepository voterRepository) {
@@ -34,29 +35,33 @@ public class VoterServiceImpl implements VoterService {
         return voterRepository.findAll(new Sort("id"));
     }
 
-    @Override //TODO: Clarify your algorithm
+    @Override
     public Voter save(Long voterId, VoterForm voterForm) {
         Optional<Voter> voterWrap = voterRepository.findOneById(voterId);
         Voter voter;
         if (voterWrap.isPresent()) {
+            //if voter exists in PBB we will set only his new vote
             voter = voterWrap.get();
             voter.setVote(Vote.valueOf(voterForm.getVote()));
         } else {
+            //if voter doesn't exist in PBB we will create new voter will set all his data
             voter = new Voter();
-            updateVoter(voter, voterId, voterForm);
-            if (lastAddedId != -1) {
-                voterRepository.getOne(firstAddedId).setTwinVoterId(voterId);
+            addVoterToPBB(voter, voterId, voterForm);
+            if (lastAddedId.get() != -1L) {
+                //if PBB is not empty (without the current voter) we will put in the first voter's twin_voter_id the id of the current voter
+                voterRepository.getOne(firstAddedId.get()).setTwinVoterId(voterId);
             } else {
-                firstAddedId = voterId;
+                //if PBB is empty (without the current voter) the current voter will be the first thus  firstAddedId = voterId
+                firstAddedId.set(voterId);
             }
-            lastAddedId = voterId;
+            lastAddedId.set(voterId); // mark that the current voter is last
         }
         return voterRepository.save(voter);
     }
 
-    private void updateVoter(Voter voter, Long voterId, VoterForm voterForm) {
+    private void addVoterToPBB(Voter voter, Long voterId, VoterForm voterForm) {
         voter.setId(voterId);
-        voter.setTwinVoterId(lastAddedId);
+        voter.setTwinVoterId(lastAddedId.get());
         voter.setVote(Vote.valueOf(voterForm.getVote()));
     }
 }
