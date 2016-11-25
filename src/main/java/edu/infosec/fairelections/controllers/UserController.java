@@ -3,6 +3,8 @@ package edu.infosec.fairelections.controllers;
 import edu.infosec.fairelections.model.entities.UserCreateForm;
 import edu.infosec.fairelections.model.validator.UserCreateFormValidator;
 import edu.infosec.fairelections.services.api.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +19,8 @@ import java.util.NoSuchElementException;
 
 @Controller
 public class UserController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
     private final UserCreateFormValidator userCreateFormValidator;
@@ -55,6 +59,7 @@ public class UserController {
         }
         try {
             userService.create(form);
+            LOGGER.info("User is created: " + form.toString());
         } catch (DataIntegrityViolationException e) {
             bindingResult.reject("username.exists", "Username already exists");
             return "user_create";

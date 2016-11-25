@@ -17,6 +17,7 @@ public class ExceptionHandlerControllerAdvice {
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNoSuchElementException(NoSuchElementException e) {
+        LOGGER.error(e.getMessage(), e);
         return e.getMessage();
     }
 
