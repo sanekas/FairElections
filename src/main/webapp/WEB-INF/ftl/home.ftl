@@ -36,7 +36,7 @@
         <div><a href="/voters" class="btn btn-primary" style="width:150px">View voters</a></div>
         <br/>
     </#if>
-    <#if currentUser?? && (currentUser.role == "ADMIN" || currentUser.role == "VOTER")>
+    <#if currentUser?? && currentUser.role == "VOTER">
         <div><a href="/vote" class="btn btn-primary" style="width:150px">Vote</a></div>
     </#if>
     </ul>
