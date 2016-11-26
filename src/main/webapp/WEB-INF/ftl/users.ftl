@@ -26,7 +26,7 @@
 </table>
 <div align="center">
     <nav role="navigation">
-        <a class="btn btn-primary" type="button" class="label" href="/">Home</a>
+        <a class="btn btn-primary label" type="button" href="/">Home</a>
         <a class="btn btn-success" href="/user/create">Create a new user</a>
     </nav>
 </div>

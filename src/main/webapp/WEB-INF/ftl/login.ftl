@@ -36,7 +36,7 @@
 
 <#if error.isPresent()>
 <p align="center"><span
-        class="label label-danger"> The username or password you have entered is invalid, try again.</span></p>
+        class="label label-danger">The username or password you have entered is invalid, try again.</span></p>
 </#if>
 </body>
 </html>

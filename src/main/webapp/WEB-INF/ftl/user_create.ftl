@@ -33,14 +33,8 @@
     <div align="center">
         <label for="userRole"><span class="label label-info"> Role </span></label>
         <select name="userRole" id="userRole" required>
-            <ul>
-                <li>
-                    <option <#if form.userRole == 'VOTER'>selected</#if>>VOTER</option>
-                </li>
-                <li>
-                    <option <#if form.userRole == 'ADMIN'>selected</#if>>ADMIN</option>
-                </li>
-            </ul>
+            <option <#if form.userRole == 'VOTER'>selected</#if>>VOTER</option>
+            <option <#if form.userRole == 'ADMIN'>selected</#if>>ADMIN</option>
         </select>
     </div>
     <div align="center">
