@@ -3,8 +3,9 @@ package edu.infosec.fairelections.controllers.model;
 /**
  * Model for common error displaying.
  */
+@Deprecated
 public class ClientError {
-    public static String ALIAS = "clientError";
+    public final static String ALIAS = "clientError";
 
     private String title;
     private String message;

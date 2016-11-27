@@ -12,25 +12,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ResultsController {
     private final VoterService voterService;
+    private final SelectionsStateService stateService;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private WebApplicationContext context;
-
-    @Autowired
-    public ResultsController(VoterService voterService) {
+    public ResultsController(VoterService voterService, SelectionsStateService stateService) {
         this.voterService = voterService;
+        this.stateService = stateService;
     }
 
     @RequestMapping("/results")
     public ModelAndView getUsersPage() {
-        SelectionsState selectionsState = getSelectionsState();
+        SelectionsState selectionsState = stateService.getState();
         switch (selectionsState) {
             case NOT_STARTED:
             case RUNNING:
@@ -41,14 +39,9 @@ public class ResultsController {
         return new ModelAndView("results", "voters", voterService.getAllVoters());
     }
 
-    @ResponseStatus(value= HttpStatus.BAD_REQUEST, reason="No selections results available.")
+    @ResponseStatus(value= HttpStatus.BAD_REQUEST, reason="Selections results are still not available.")
     @ExceptionHandler({NoSelectionsResultsException.class})
     public void badResultsRequest() {
-        LOGGER.warn("Bad results request.");
-    }
-
-    private SelectionsState getSelectionsState() {
-        SelectionsStateService service = (SelectionsStateService) context.getBean("selectionsStateService");
-        return service.getState();
+        LOGGER.warn("Bad results request. Selections are " + stateService.getState());
     }
 }
