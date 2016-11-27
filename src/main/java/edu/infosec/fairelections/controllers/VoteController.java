@@ -46,7 +46,7 @@ public class VoteController {
         return voterModelAndView;
     }
 
-    @PreAuthorize("hasAuthority('VOTER') || hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('VOTER')")
     @RequestMapping(value = "/vote", method = RequestMethod.POST)
     public String handleVoterCreateForm(@ModelAttribute VoterForm voterForm, Authentication authentication,
                                         BindingResult bindingResult) {
@@ -65,7 +65,7 @@ public class VoteController {
             return "error";
         }
         LOGGER.info("Voter: " + currentUser + " voted, voterForm: " + voterForm);
-        return "home";
+        return "redirect:/";
     }
 
 }
