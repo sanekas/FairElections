@@ -1,9 +1,9 @@
 package edu.infosec.fairelections.controllers;
 
-import edu.infosec.fairelections.controllers.exceptions.NoSelectionsResultsException;
-import edu.infosec.fairelections.services.api.SelectionsState;
+import edu.infosec.fairelections.controllers.exceptions.NoElectionsResultsException;
+import edu.infosec.fairelections.services.api.ElectionsState;
 import edu.infosec.fairelections.services.api.VoterService;
-import edu.infosec.fairelections.services.impl.SelectionsStateService;
+import edu.infosec.fairelections.services.impl.ElectionsStateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,31 +17,31 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ResultsController {
     private final VoterService voterService;
-    private final SelectionsStateService stateService;
+    private final ElectionsStateService stateService;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public ResultsController(VoterService voterService, SelectionsStateService stateService) {
+    public ResultsController(VoterService voterService, ElectionsStateService stateService) {
         this.voterService = voterService;
         this.stateService = stateService;
     }
 
     @RequestMapping("/results")
     public ModelAndView getUsersPage() {
-        SelectionsState selectionsState = stateService.getState();
-        switch (selectionsState) {
+        ElectionsState electionsState = stateService.getState();
+        switch (electionsState) {
             case NOT_STARTED:
             case RUNNING:
-                throw new NoSelectionsResultsException();
+                throw new NoElectionsResultsException();
             case ENDED:
                 return new ModelAndView("results", "voters", voterService.getAllVoters());
         }
         return new ModelAndView("results", "voters", voterService.getAllVoters());
     }
 
-    @ResponseStatus(value= HttpStatus.BAD_REQUEST, reason="Selections results are still not available.")
-    @ExceptionHandler({NoSelectionsResultsException.class})
+    @ResponseStatus(value= HttpStatus.BAD_REQUEST, reason="Elections results are still not available.")
+    @ExceptionHandler({NoElectionsResultsException.class})
     public void badResultsRequest() {
-        LOGGER.warn("Bad results request. Selections are " + stateService.getState());
+        LOGGER.warn("Bad results request. Eelections are " + stateService.getState());
     }
 }

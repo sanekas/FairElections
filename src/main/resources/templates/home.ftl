@@ -18,26 +18,37 @@
         <a href="/login" class="btn btn-primary" style="width:150px">Log in</a><br/>
     </#if>
     <#if currentUser??>
+        <#if electionsState??>
+            <div>
+                <span class="label label-info">
+                ${electionsState}
+                </span>
+            </div>
+        </#if>
         <div>
             <form action="/logout" method="post">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <button type="submit" class="btn btn-primary" style="width:150px">Log out</button>
             </form>
         </div>
-        <br/>
         <div><a href="/user/${currentUser.id}" class="btn btn-primary" style="width:150px">View myself</a></div>
-        <br/>
-    </#if>
-    <#if currentUser?? && currentUser.role == "ADMIN">
-        <div><a href="/user/create" class="btn btn-primary" style="width:150px">Create a new user</a></div>
-        <br/>
-        <div><a href="/users" class="btn btn-primary" style="width:150px">View all users</a></div>
-        <br/>
-        <div><a href="/voters" class="btn btn-primary" style="width:150px">View voters</a></div>
-        <br/>
-    </#if>
-    <#if currentUser?? && currentUser.role == "VOTER">
-        <div><a href="/vote" class="btn btn-primary" style="width:150px">Vote</a></div>
+
+        <#if currentUser.role == "ADMIN">
+            <div><a href="/user/create" class="btn btn-primary" style="width:150px">Create a new user</a></div>
+            <div><a href="/users" class="btn btn-primary" style="width:150px">View all users</a></div>
+            <div><a href="/voters" class="btn btn-primary" style="width:150px">View voters</a></div>
+            <#if electionsButton??>
+                <div>
+                    <form action="/updateElectionsState" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-primary" style="width:150px">${electionsButton}</button>
+                    </form>
+                </div>
+            </#if>
+        </#if>
+        <#if currentUser.role == "VOTER">
+            <div><a href="/vote" class="btn btn-primary" style="width:150px">Vote</a></div>
+        </#if>
     </#if>
     </ul>
 </nav>
