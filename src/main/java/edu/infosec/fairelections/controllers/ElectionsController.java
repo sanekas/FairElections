@@ -1,7 +1,6 @@
 package edu.infosec.fairelections.controllers;
 
-import edu.infosec.fairelections.services.api.ElectionsState;
-import edu.infosec.fairelections.services.impl.ElectionsStateServiceImpl;
+import edu.infosec.fairelections.services.api.ElectionsStateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +11,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ElectionsController {
-    private final ElectionsStateServiceImpl electionsState;
+    private final ElectionsStateService electionsStateService;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public ElectionsController(ElectionsStateServiceImpl electionsState) {
-        this.electionsState = electionsState;
+    public ElectionsController(ElectionsStateService electionsStateService) {
+        this.electionsStateService = electionsStateService;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/updateElectionsState", method = RequestMethod.POST)
     public String updateElectionsState() {
-        switch (electionsState.getState()) {
-            case NOT_STARTED:
-                electionsState.setState(ElectionsState.RUNNING);
-                LOGGER.info("Elections started!");
-                break;
-            case RUNNING:
-                electionsState.setState(ElectionsState.ENDED);
-                LOGGER.info("Elections ended!");
-                break;
-            default:
-                LOGGER.info("Incorrect elections state update query.");
-        }
+        electionsStateService.updateElectionsState();
         return "redirect:/";
     }
 
