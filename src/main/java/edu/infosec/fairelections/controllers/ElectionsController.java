@@ -1,7 +1,7 @@
 package edu.infosec.fairelections.controllers;
 
 import edu.infosec.fairelections.services.api.ElectionsState;
-import edu.infosec.fairelections.services.impl.ElectionsStateService;
+import edu.infosec.fairelections.services.impl.ElectionsStateServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class ElectionsController {
-    private final ElectionsStateService electionsState;
+    private final ElectionsStateServiceImpl electionsState;
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public ElectionsController(ElectionsStateService electionsState) {
+    public ElectionsController(ElectionsStateServiceImpl electionsState) {
         this.electionsState = electionsState;
     }
 

@@ -46,7 +46,7 @@
                 </div>
             </#if>
         </#if>
-        <#if currentUser.role == "VOTER">
+        <#if currentUser.role == "VOTER" && votingOpened>
             <div><a href="/vote" class="btn btn-primary" style="width:150px">Vote</a></div>
         </#if>
     </#if>

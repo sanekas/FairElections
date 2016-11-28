@@ -1,6 +1,7 @@
 package edu.infosec.fairelections.controllers;
 
-import edu.infosec.fairelections.services.impl.ElectionsStateService;
+import edu.infosec.fairelections.services.api.ElectionsStateService;
+import edu.infosec.fairelections.services.impl.ElectionsStateServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class HomeController {
 
         String electionsButtonTitle = null;
         String electionsStateMessage = null;
+        boolean votingOpened = false;
         switch (electionsState.getState()) {
             case NOT_STARTED:
                 electionsButtonTitle = "Start elections";
@@ -33,6 +35,7 @@ public class HomeController {
             case RUNNING:
                 electionsButtonTitle = "End elections";
                 electionsStateMessage = "Elections are running.";
+                votingOpened = true;
                 break;
             case ENDED:
                 electionsStateMessage = "Elections are over.";
@@ -40,6 +43,7 @@ public class HomeController {
         }
         homeModelAndView.addObject("electionsButton", electionsButtonTitle);
         homeModelAndView.addObject("electionsState", electionsStateMessage);
+        homeModelAndView.addObject("votingOpened", votingOpened);
         homeModelAndView.setViewName("home");
         return homeModelAndView;
     }

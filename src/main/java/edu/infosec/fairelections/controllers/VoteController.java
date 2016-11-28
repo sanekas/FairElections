@@ -1,21 +1,23 @@
 package edu.infosec.fairelections.controllers;
 
+import edu.infosec.fairelections.controllers.exceptions.ElectionsStateException;
 import edu.infosec.fairelections.model.api.Vote;
 import edu.infosec.fairelections.model.entities.CurrentUser;
 import edu.infosec.fairelections.model.entities.VoterForm;
 import edu.infosec.fairelections.services.api.CandidatesService;
+import edu.infosec.fairelections.services.api.ElectionsState;
+import edu.infosec.fairelections.services.api.ElectionsStateService;
 import edu.infosec.fairelections.services.api.VoterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -25,11 +27,14 @@ public class VoteController {
 
     private final VoterService voterService;
     private final CandidatesService candidatesService;
+    private final ElectionsStateService stateService;
 
     @Autowired
-    public VoteController(VoterService voterService, CandidatesService candidatesService) {
+    public VoteController(VoterService voterService, CandidatesService candidatesService,
+                          ElectionsStateService stateService) {
         this.voterService = voterService;
         this.candidatesService = candidatesService;
+        this.stateService = stateService;
     }
 
 
@@ -37,6 +42,9 @@ public class VoteController {
     @RequestMapping(value = "/vote", method = RequestMethod.GET)
     public ModelAndView getVoterPage() {
 
+        if (stateService.getState() != ElectionsState.RUNNING) {
+            throw new ElectionsStateException();
+        }
         ModelAndView voterModelAndView = new ModelAndView();
 
         voterModelAndView.addObject("form", new VoterForm());
@@ -53,7 +61,10 @@ public class VoteController {
         if (bindingResult.hasErrors()) {
             return "error";
         }
-        CurrentUser currentUser= (CurrentUser) authentication.getPrincipal();
+        if (stateService.getState() != ElectionsState.RUNNING) {
+            throw new ElectionsStateException();
+        }
+        CurrentUser currentUser = (CurrentUser) authentication.getPrincipal();
         try {
             Vote vote = Vote.valueOf(voterForm.getVote());
             if (vote != Vote.EMPTY) {
@@ -66,6 +77,12 @@ public class VoteController {
         }
         LOGGER.info("Voter: " + currentUser + " voted, voterForm: " + voterForm);
         return "redirect:/";
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Sorry, voting is not available.")
+    @ExceptionHandler({ElectionsStateException.class})
+    public void badVoteRequest() {
+        LOGGER.warn("Bad voter form request. Elections are " + stateService.getState());
     }
 
 }

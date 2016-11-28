@@ -1,9 +1,9 @@
 package edu.infosec.fairelections.controllers;
 
-import edu.infosec.fairelections.controllers.exceptions.NoElectionsResultsException;
+import edu.infosec.fairelections.controllers.exceptions.ElectionsStateException;
 import edu.infosec.fairelections.services.api.ElectionsState;
+import edu.infosec.fairelections.services.api.ElectionsStateService;
 import edu.infosec.fairelections.services.api.VoterService;
-import edu.infosec.fairelections.services.impl.ElectionsStateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +29,15 @@ public class ResultsController {
     @RequestMapping("/results")
     public ModelAndView getUsersPage() {
         ElectionsState electionsState = stateService.getState();
-        switch (electionsState) {
-            case NOT_STARTED:
-            case RUNNING:
-                throw new NoElectionsResultsException();
-            case ENDED:
-                return new ModelAndView("results", "voters", voterService.getAllVoters());
+        if (electionsState != ElectionsState.ENDED) {
+            throw new ElectionsStateException();
         }
         return new ModelAndView("results", "voters", voterService.getAllVoters());
     }
 
-    @ResponseStatus(value= HttpStatus.BAD_REQUEST, reason="Elections results are still not available.")
-    @ExceptionHandler({NoElectionsResultsException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Elections results are still not available.")
+    @ExceptionHandler({ElectionsStateException.class})
     public void badResultsRequest() {
-        LOGGER.warn("Bad results request. Eelections are " + stateService.getState());
+        LOGGER.warn("Bad results request. Elections are " + stateService.getState());
     }
 }
