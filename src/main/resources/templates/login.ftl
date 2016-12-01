@@ -5,13 +5,10 @@
 <#include "common/head.ftl">
 
 <body>
-<style scoped>
-    body {
-        background: url(https://pbs.twimg.com/media/CrCOIgAXgAEg9DD.jpg);
-        background-size: cover;
-    }
-</style>
-<h1 align="center"><span class="label label-info">Log in</span></h1>
+
+<div align="center">
+    <h1 align="center"><span class="label label-info">Log in</span></h1>
+</div>
 
 <h4 align="center"><span class="label label-warning"> You can use: sysadm / demo </span></h4>
 

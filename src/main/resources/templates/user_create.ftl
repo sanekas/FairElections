@@ -4,12 +4,7 @@
 <#assign title = "Create new user">
 <#include "common/head.ftl">
 <body>
-<style scoped>
-    body {
-        background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Donald_Trump_and_Hillary_Clinton_during_United_States_presidential_election_2016.jpg/1280px-Donald_Trump_and_Hillary_Clinton_during_United_States_presidential_election_2016.jpg);
-        background-size: cover;
-    }
-</style>
+
 <h1 align="center"><span class="label label-info"> Create a new user </span></h1>
 
 <form role="form" name="form" action="" method="post">
@@ -38,9 +33,9 @@
         </select>
     </div>
     <div align="center">
-        <button align="center" type="submit" class="btn btn-success">Create</button>
+        <button type="submit" class="btn btn-success">Create</button>
         <nav class="btn btn-primary" role="navigation">
-            <a href="/" class="label">Home</a>
+            <a href="/">Home</a>
         </nav>
     </div>
 </form>

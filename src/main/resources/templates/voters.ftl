@@ -29,7 +29,7 @@
 
 <div align="center">
     <nav role="navigation">
-        <a class="btn btn-primary label" type="button" href="/">Home</a>
+        <a type="button" href="/" class="btn btn-primary">Home</a>
     </nav>
 </div>
 

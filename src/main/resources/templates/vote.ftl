@@ -5,11 +5,7 @@
 <#include "common/head.ftl">
 
 <body>
-<style scoped>
-    body { background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Donald_Trump_and_Hillary_Clinton_during_United_States_presidential_election_2016.jpg/1280px-Donald_Trump_and_Hillary_Clinton_during_United_States_presidential_election_2016.jpg);
-        background-size: cover;
-    }
-</style>
+
 <h1 align="center"><span class="label label-info"> It's time to choose </span></h1><br/>
 
 <#import "/spring.ftl" as spring/>
