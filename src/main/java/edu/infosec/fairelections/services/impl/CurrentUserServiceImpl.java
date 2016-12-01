@@ -1,6 +1,6 @@
 package edu.infosec.fairelections.services.impl;
 
-import edu.infosec.fairelections.model.entities.CurrentUser;
+import edu.infosec.fairelections.model.entities.impl.CurrentUser;
 import edu.infosec.fairelections.model.api.UserRole;
 import edu.infosec.fairelections.services.api.CurrentUserService;
 import org.slf4j.Logger;

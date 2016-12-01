@@ -1,7 +1,7 @@
 package edu.infosec.fairelections.services.impl;
 
-import edu.infosec.fairelections.model.entities.CurrentUser;
-import edu.infosec.fairelections.model.entities.User;
+import edu.infosec.fairelections.model.entities.impl.CurrentUser;
+import edu.infosec.fairelections.model.entities.impl.User;
 import edu.infosec.fairelections.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;

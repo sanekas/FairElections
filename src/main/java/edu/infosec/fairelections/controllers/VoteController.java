@@ -2,8 +2,8 @@ package edu.infosec.fairelections.controllers;
 
 import edu.infosec.fairelections.controllers.exceptions.ElectionsStateException;
 import edu.infosec.fairelections.model.api.Vote;
-import edu.infosec.fairelections.model.entities.CurrentUser;
-import edu.infosec.fairelections.model.entities.VoterForm;
+import edu.infosec.fairelections.model.entities.impl.CurrentUser;
+import edu.infosec.fairelections.model.entities.forms.VoterForm;
 import edu.infosec.fairelections.services.api.CandidatesService;
 import edu.infosec.fairelections.services.api.ElectionsState;
 import edu.infosec.fairelections.services.api.ElectionsStateService;

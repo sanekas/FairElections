@@ -1,7 +1,7 @@
 package edu.infosec.fairelections.services.api;
 
 import edu.infosec.fairelections.model.api.Vote;
-import edu.infosec.fairelections.model.entities.Voter;
+import edu.infosec.fairelections.model.entities.impl.Voter;
 
 import java.util.Collection;
 import java.util.Optional;

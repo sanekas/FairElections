@@ -1,6 +1,6 @@
 package edu.infosec.fairelections.repository;
 
-import edu.infosec.fairelections.model.entities.User;
+import edu.infosec.fairelections.model.entities.impl.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

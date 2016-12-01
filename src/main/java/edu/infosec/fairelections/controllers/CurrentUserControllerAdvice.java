@@ -1,6 +1,6 @@
 package edu.infosec.fairelections.controllers;
 
-import edu.infosec.fairelections.model.entities.CurrentUser;
+import edu.infosec.fairelections.model.entities.impl.CurrentUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

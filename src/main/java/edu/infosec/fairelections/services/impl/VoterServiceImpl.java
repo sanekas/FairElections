@@ -1,7 +1,8 @@
 package edu.infosec.fairelections.services.impl;
 
 import edu.infosec.fairelections.model.api.Vote;
-import edu.infosec.fairelections.model.entities.Voter;
+import edu.infosec.fairelections.model.api.VoterFacory;
+import edu.infosec.fairelections.model.entities.impl.Voter;
 import edu.infosec.fairelections.repository.VoterRepository;
 import edu.infosec.fairelections.services.api.VoterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,15 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class VoterServiceImpl implements VoterService {
     private final VoterRepository voterRepository;
+    private final VoterFacory voterFacory;
 
     private AtomicLong lastAddedId = new AtomicLong(-1);
     private AtomicLong firstAddedId = new AtomicLong(0);
 
     @Autowired
-    public VoterServiceImpl(VoterRepository voterRepository) {
+    public VoterServiceImpl(VoterRepository voterRepository, VoterFacory voterFacory) {
         this.voterRepository = voterRepository;
+        this.voterFacory = voterFacory;
     }
 
     @Override
@@ -57,8 +60,7 @@ public class VoterServiceImpl implements VoterService {
             voter = voterWrap.get();
             voter.setVote(vote);
         } else {
-            voter = new Voter();
-            addVoterToPBB(voter, voterId, vote);
+            voter = voterFacory.createVoter(voterId, vote, lastAddedId.get());
             if (lastAddedId.get() != -1L) {
                 voterRepository.getOne(firstAddedId.get()).setTwinVoterId(voterId);
             } else {
@@ -67,11 +69,5 @@ public class VoterServiceImpl implements VoterService {
             lastAddedId.set(voterId);
         }
         return voterRepository.save(voter);
-    }
-
-    private void addVoterToPBB(Voter voter, Long voterId, Vote vote) {
-        voter.setId(voterId);
-        voter.setTwinVoterId(lastAddedId.get());
-        voter.setVote(vote);
     }
 }

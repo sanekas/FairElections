@@ -1,4 +1,4 @@
-package edu.infosec.fairelections.model.entities;
+package edu.infosec.fairelections.model.entities.impl;
 
 import edu.infosec.fairelections.model.api.UserRole;
 import org.springframework.security.core.authority.AuthorityUtils;

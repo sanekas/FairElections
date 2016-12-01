@@ -1,6 +1,6 @@
 package edu.infosec.fairelections.model.validator;
 
-import edu.infosec.fairelections.model.entities.UserCreateForm;
+import edu.infosec.fairelections.model.entities.forms.UserCreateForm;
 import edu.infosec.fairelections.services.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

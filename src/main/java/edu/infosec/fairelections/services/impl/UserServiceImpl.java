@@ -1,7 +1,8 @@
 package edu.infosec.fairelections.services.impl;
 
-import edu.infosec.fairelections.model.entities.User;
-import edu.infosec.fairelections.model.entities.UserCreateForm;
+import edu.infosec.fairelections.model.api.UserFactory;
+import edu.infosec.fairelections.model.entities.impl.User;
+import edu.infosec.fairelections.model.entities.forms.UserCreateForm;
 import edu.infosec.fairelections.repository.UserRepository;
 import edu.infosec.fairelections.services.api.UserService;
 import edu.infosec.fairelections.utils.api.EncryptionService;
@@ -16,11 +17,13 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final EncryptionService encryptionService;
+    private final UserFactory userFactory;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, EncryptionService encryptionService) {
+    public UserServiceImpl(UserRepository userRepository, EncryptionService encryptionService, UserFactory userFactory) {
         this.userRepository = userRepository;
         this.encryptionService = encryptionService;
+        this.userFactory = userFactory;
     }
 
     @Override
@@ -40,10 +43,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(UserCreateForm form) {
-        User user = new User();
-        user.setUsername(form.getUsername());
-        user.setPasswordHash(encryptionService.getEncoder().encode(form.getPassword()));
-        user.setUserRole(form.getUserRole());
+        User user = userFactory.createUser(form.getUsername(),
+                encryptionService.getEncoder().encode(form.getPassword()), form.getUserRole());
         return userRepository.save(user);
     }
 }

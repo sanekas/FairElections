@@ -1,6 +1,6 @@
 package edu.infosec.fairelections.controllers;
 
-import edu.infosec.fairelections.model.entities.UserCreateForm;
+import edu.infosec.fairelections.model.entities.forms.UserCreateForm;
 import edu.infosec.fairelections.model.validator.UserCreateFormValidator;
 import edu.infosec.fairelections.services.api.UserService;
 import org.slf4j.Logger;
