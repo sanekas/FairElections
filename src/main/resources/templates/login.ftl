@@ -10,8 +10,6 @@
     <h1 align="center"><span class="label label-info">Log in</span></h1>
 </div>
 
-<h4 align="center"><span class="label label-warning"> You can use: sysadm / demo </span></h4>
-
 <form role="form" action="/login" method="post">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 

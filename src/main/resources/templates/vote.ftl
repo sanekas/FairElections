@@ -27,7 +27,7 @@
 
 <@spring.bind "form" />
 <#if spring.status.error>
-    <ul align="center">
+    <ul>
         <#list spring.status.errorMessages as error>
             <li class="label label-danger">${error}</li>
         </#list>
