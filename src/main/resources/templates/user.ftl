@@ -13,10 +13,6 @@
     <nav role="navigation">
         <a href="/" class="btn btn-primary">Home</a>
     </nav>
-</div>
-
-
-<div align="center">
     <p><span class="label label-default"> Username: ${user.username} </span></p>
     <p><span class="label label-default"> Role: ${user.userRole} </span></p>
     <#if currentUser.role != "ADMIN" && twin??>

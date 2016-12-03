@@ -5,8 +5,8 @@
 <#include "common/head.ftl">
 
 <body>
-<h1 align="center"><span class="label label-info">Welcome to fair elections!</span></h1>
 <div align="center">
+    <h1><span class="label label-info">Welcome to fair elections!</span></h1>
     <nav role="navigation">
         <ul>
         <#if !currentUser??>

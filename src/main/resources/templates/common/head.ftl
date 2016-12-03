@@ -8,4 +8,9 @@
             th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
 
     <title>${title} | FairElections</title>
+    <style>
+        body{
+            margin: 50px;
+        }
+    </style>
 </head>
