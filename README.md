@@ -3,6 +3,7 @@
 
 # FairElections
 Project "Fair Elections", information security course
+Fall, 2016 (team project, 3 members)
 
 ##Links
 * [Tutorial article](http://kielczewski.eu/2014/12/spring-boot-security-application/)
