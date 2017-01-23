@@ -5,6 +5,7 @@
 Project "Fair Elections", information security course
 
 ##Links
+* [Wiki article] (https://ru.wikipedia.org/wiki/Безопасные_протоколы_голосования)
 * [Tutorial article](http://kielczewski.eu/2014/12/spring-boot-security-application/)
 * [Tutorial repository](https://github.com/bkielczewski/example-spring-boot-security)
 * [Scientific article, algorithm](http://people.csail.mit.edu/rivest/RivestSmith-ThreeVotingProtocolsThreeBallotVAVAndTwin.pdf)
