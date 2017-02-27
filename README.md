@@ -5,6 +5,11 @@
 Project "Fair Elections", information security course
 Fall, 2016 (team project, 3 members)
 
+Developers:
+* [Andrew Martynenko](https://github.com/Anrymart)
+* [Daniil Smirnov](https://github.com/kventos)
+* [Alexander Sergeev](https://github.com/sanekas)
+
 ##Links
 * [Tutorial article](http://kielczewski.eu/2014/12/spring-boot-security-application/)
 * [Tutorial repository](https://github.com/bkielczewski/example-spring-boot-security)
