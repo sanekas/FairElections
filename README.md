@@ -3,6 +3,12 @@
 
 # FairElections
 Project "Fair Elections", information security course
+Fall, 2016 (team project, 3 members)
+
+Developers:
+* [Andrew Martynenko](https://github.com/Anrymart)
+* [Daniil Smirnov](https://github.com/kventos)
+* [Alexander Sergeev](https://github.com/sanekas)
 
 ##Links
 * [Wiki article] (https://ru.wikipedia.org/wiki/Безопасные_протоколы_голосования)
